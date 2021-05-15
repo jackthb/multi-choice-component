@@ -18,11 +18,8 @@ export default function Slider({
 }: SliderProps) {
   const [selected, setSelected] = useState<boolean>(false);
 
-  useEffect(() => {
-    options.sort(() => Math.random() - 0.5);
-  }, []);
   return (
-    <div>
+    <div className="slider">
       {options.map((s, index) => {
         return (
           <label key={index}>
@@ -42,6 +39,7 @@ export default function Slider({
           </label>
         );
       })}
+      <div className="slide"></div>
     </div>
   );
 }
