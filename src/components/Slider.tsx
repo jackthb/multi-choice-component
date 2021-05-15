@@ -1,26 +1,24 @@
-type AppProps = {
-  correct: string;
-  wrong: string;
+type SliderProps = {
+  options: {
+    label: string;
+    isCorrect: boolean;
+  }[];
+  id: number;
 };
 
-export default function Slider() {}
-
-export default function Slider({
-  header,
-  children,
-}: {
-  header: (num: number) => ReactNode;
-  children: (num: number) => ReactNode;
-}) {
-  const [state, setState] = React.useState<number>(1);
-
+export default function Slider({ options, id }: SliderProps) {
   return (
     <div>
-      <h2>{header?.(state)}</h2>
-      <div>{children(state)}</div>
-      <div>
-        <button onClick={() => setState(state + 1)}>Add</button>
-      </div>
+      {options
+        .sort(() => Math.random() - 0.5)
+        .map((s) => {
+          return (
+            <label key={id}>
+              <input type="radio" name={`answer-${id}`} value={s.label}></input>
+              <span>{s.label}</span>
+            </label>
+          );
+        })}
     </div>
   );
 }
