@@ -1,6 +1,6 @@
 import MultiChoice from "./components/MultiChoice";
 
-import { defaultOptions as Question } from "./data";
+import { animalCell as Question } from "./data";
 
 export default function App() {
   return (
