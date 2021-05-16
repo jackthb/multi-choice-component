@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Slider from "./Slider";
 
 type MultiChoiceProps = {
+  id: number;
   question: string;
   option: {
     label: string;
@@ -17,44 +18,51 @@ function Answer({ correct }: AnswerProps) {
   return <p>The answer is {correct ? "correct" : "incorrect"}</p>;
 }
 
-export default function MultiChoice({ question, option }: MultiChoiceProps) {
+export default function MultiChoice({
+  id,
+  question,
+  option,
+}: MultiChoiceProps) {
   const [correct, setCorrect] = useState<boolean>(false);
   const [noCorrect, setNoCorrect] = useState<number>(0);
-  const [colour, setColour] = useState<string>(
-    "linear-gradient(to bottom, rgba(250, 145, 97, 0.7), rgba(247, 59, 28, 0.69))"
-  );
+  const [colour, setColour] = useState<string[]>([
+    "rgba(250, 145, 97, 0.7)",
+    "rgba(247, 59, 28, 0.69)",
+  ]);
+
   useEffect(() => {
     if (noCorrect === option.length) {
+      setColour(["#47e4c1", "#07cddd"]);
       setCorrect(true);
+      return;
     }
     switch (noCorrect) {
       case 1:
-        setColour("linear-gradient(to bottom, #FDD819, #E80505)");
+        setColour(["#FDD819", "#E80505"]);
         break;
       case 2:
-        setColour("linear-gradient(to bottom, #FEC163, #DE4313)");
+        setColour(["#FEC163", "#DE4313"]);
         break;
       case 3:
-        setColour("linear-gradient(to bottom, #ffd392, #DE4313)");
-        break;
-      case 4:
-        setColour("linear-gradient(to bottom, #47e4c1, #07cddd)");
+        setColour(["#ffd392", "#DE4313"]);
         break;
     }
   }, [noCorrect, option.length]);
+
   return (
     <div
-      className="Mask"
+      className="mask"
       style={{
-        backgroundImage: colour,
+        backgroundImage: `linear-gradient(to bottom, ${colour[0]}, ${colour[1]})`,
       }}
     >
       <h1 className="text">{question}</h1>
       {option.map((x, index) => (
         <Slider
-          key={index}
+          key={`${index}-${id}`}
           options={x}
           id={index}
+          questionId={id}
           noCorrect={noCorrect}
           setNoCorrect={setNoCorrect}
         />
