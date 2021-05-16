@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
+import "./Slider.css";
 
 type SliderProps = {
   options: {
@@ -22,11 +23,11 @@ export default function Slider({
     <div className="slider">
       {options.map((s, index) => {
         return (
-          <label key={index}>
-            {s.label}
+          <React.Fragment key={index}>
             <input
               type="radio"
               name={`answer-${id}`}
+              id={`answer-${id}-${index}`}
               value={s.label}
               disabled={selected}
               onClick={() => {
@@ -36,7 +37,10 @@ export default function Slider({
                 }
               }}
             ></input>
-          </label>
+            <label htmlFor={`answer-${id}-${index}`} key={index}>
+              {s.label}
+            </label>
+          </React.Fragment>
         );
       })}
       <div className="slide"></div>
