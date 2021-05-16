@@ -1,4 +1,5 @@
 type Question = {
+  id: number;
   question: string;
   option: {
     label: string;
@@ -7,6 +8,7 @@ type Question = {
 };
 
 export const defaultOptions: Question = {
+  id: 0,
   question: "What are the ideal conditions inside an office?",
   option: [
     [
@@ -14,8 +16,8 @@ export const defaultOptions: Question = {
       { label: "Bad pay", isCorrect: false },
     ],
     [
-      { label: "lot of meetings", isCorrect: true },
-      { label: "less meetings", isCorrect: false },
+      { label: "lot of meetings", isCorrect: false },
+      { label: "less meetings", isCorrect: true },
     ],
     [
       { label: "free coffee", isCorrect: true },
@@ -29,7 +31,8 @@ export const defaultOptions: Question = {
 };
 
 export const animalCell: Question = {
-  question: "An animal cell contains",
+  id: 1,
+  question: "An animal cell contains:",
   option: [
     [
       { label: "Ribosomes", isCorrect: true },
@@ -51,6 +54,7 @@ export const animalCell: Question = {
 };
 
 export const altOptions: Question = {
+  id: 2,
   question: "What day is it today?",
   option: [
     [
