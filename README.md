@@ -1,46 +1,19 @@
-# Getting Started with Create React App
+# Take-home test
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+I made the following assumptions, based on the material provided. As there wasn't any depicted initial state, none of the selectors are active on first load. Then, the sliding component will be rendered once first clicked for each switch. Logically, it wouldn't make sense for the options to be loaded so that all of the correct answers are on the left/right (it would be too easy), so these are positions are randomly determined and vary between sessions. I also assume there would be a maximum of 4 different options from the material. Finally, when the window is lower than 895px wide, the component stretches to fill the width of the page.
+
+This is also my first attempt at typechecking with TypeScript. As such, I was able to understand its current popularity, in the intellisense and early error catching which likely saved a lot of headache towards the end of the task.
+
+While not explicitly requested, I have been learning more about TTD and Jest, so implemented a few simple unit tests located in the `__tests__` directory. Further, to demonstrate reusablility, there is a selector for different questions, and the subsequent appearance based on the different number of options.
 
 ## Available Scripts
 
-In the project directory, you can run:
+To start...
 
-### `yarn start`
+### `yarn start` or `npm start`
 
-Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
+### `yarn test` or `npm test`
 
 Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).

@@ -25,10 +25,7 @@ export default function MultiChoice({
 }: MultiChoiceProps) {
   const [correct, setCorrect] = useState<boolean>(false);
   const [noCorrect, setNoCorrect] = useState<number>(0);
-  const [colour, setColour] = useState<string[]>([
-    "rgba(250, 145, 97, 0.7)",
-    "rgba(247, 59, 28, 0.69)",
-  ]);
+  const [colour, setColour] = useState<string[]>(["#FFAD4D", "#FF5500"]);
 
   useEffect(() => {
     if (noCorrect === option.length) {
@@ -38,13 +35,13 @@ export default function MultiChoice({
     }
     switch (noCorrect) {
       case 1:
-        setColour(["#FDD819", "#E80505"]);
+        setColour(["#FFCA4C", "#FF8400"]);
         break;
       case 2:
         setColour(["#FEC163", "#DE4313"]);
         break;
       case 3:
-        setColour(["#ffd392", "#DE4313"]);
+        setColour(["#FDE44C", "#FFAA00"]);
         break;
     }
   }, [noCorrect, option.length]);
