@@ -3,9 +3,18 @@ import MultiChoice from "./components/MultiChoice";
 
 import { animalCell, defaultOptions, altOptions } from "./data";
 
+type QuestionProps = {
+  id: number;
+  question: string;
+  option: {
+    label: string;
+    isCorrect: boolean;
+  }[][];
+};
+
 export default function App() {
   const [question, setQuestion] = useState(animalCell);
-  const [sorted, setSorted] = useState(false);
+  const [sorted, setSorted] = useState<boolean>(false);
 
   useEffect(() => {
     if (sorted) return;
@@ -13,7 +22,12 @@ export default function App() {
       x.sort(() => Math.random() - 0.5);
     });
     setSorted(true);
-  }, [question]);
+  }, [question, sorted]);
+
+  const handleChange = (question: QuestionProps) => {
+    setQuestion(question);
+    setSorted(false);
+  };
 
   return (
     <div className="container">
@@ -27,27 +41,13 @@ export default function App() {
       <div className="chooseQuestion">
         <span>Choose Question:</span>
         <ul>
-          <li onClick={() => setQuestion(animalCell)}>Animal Cell question</li>
-          <li onClick={() => setQuestion(defaultOptions)}>
+          <li onClick={() => handleChange(animalCell)}>Animal Cell question</li>
+          <li onClick={() => handleChange(defaultOptions)}>
             Office Life question
           </li>
-          <li onClick={() => setQuestion(altOptions)}>Calendar question</li>
+          <li onClick={() => handleChange(altOptions)}>Calendar question</li>
         </ul>
       </div>
-
-      {/* <MultiChoice
-        question="How many trees are there in England"
-        option={[
-          [
-            { label: "there are no trees", isCorrect: true },
-            { label: "there are many", isCorrect: false },
-          ],
-          [
-            { label: "tall trees", isCorrect: true },
-            { label: "short trees", isCorrect: false },
-          ],
-        ]}
-      /> */}
     </div>
   );
 }
