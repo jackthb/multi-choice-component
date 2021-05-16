@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Slider.css";
 
 type SliderProps = {
@@ -7,6 +7,7 @@ type SliderProps = {
     isCorrect: boolean;
   }[];
   id: number;
+  questionId: number;
   noCorrect: number;
   setNoCorrect: Function;
 };
@@ -14,36 +15,38 @@ type SliderProps = {
 export default function Slider({
   options,
   id,
+  questionId,
   noCorrect,
   setNoCorrect,
 }: SliderProps) {
   const [selected, setSelected] = useState<boolean>(false);
-
+  const [interacted, setInteracted] = useState<boolean>(false);
   return (
     <div className="slider">
       {options.map((s, index) => {
         return (
-          <React.Fragment key={index}>
+          <React.Fragment key={`${index}`}>
             <input
               type="radio"
-              name={`answer-${id}`}
-              id={`answer-${id}-${index}`}
+              name={`${questionId}-answer-${id}`}
+              id={`${questionId}-answer-${id}-${index}`}
               value={s.label}
               disabled={selected}
-              onClick={() => {
+              onChange={() => {
+                setInteracted(true);
                 if (s.isCorrect) {
                   setSelected(true);
                   setNoCorrect(noCorrect + 1);
                 }
               }}
             ></input>
-            <label htmlFor={`answer-${id}-${index}`} key={index}>
+            <label htmlFor={`${questionId}-answer-${id}-${index}`} key={index}>
               {s.label}
             </label>
           </React.Fragment>
         );
       })}
-      <div className="slide"></div>
+      {interacted && <div className="slide"></div>}
     </div>
   );
 }
