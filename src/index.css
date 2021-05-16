@@ -21,73 +21,11 @@ body {
 }
 
 .Mask {
+  position: relative;
   align-items: center;
   justify-items: center;
   display: grid;
   min-width: 320px;
-  width: 710px;
-  height: 365px;
-  margin: 80px 0px;
-  padding: 67px 0 69px;
   border-radius: 8px;
   box-shadow: 0 2px 12px 6px rgba(167, 196, 220, 0.5);
-  background-image: linear-gradient(to bottom, #47e4c1, #07cddd);
-}
-
-.slider {
-  display: grid;
-  align-items: center;
-  grid-template-columns: repeat(2, 1fr);
-  width: 50%;
-  height: 45px;
-  margin: 0 0 19px;
-  border-radius: 100px;
-  border: solid 1px #fbfbfb;
-  /* width: 710;
-  height: 365px;
-  border: 1px black solid;
-  border-radius: 100px;
-  position: relative; */
-  /* display: flex; */
-  /* align-items: stretch;
-  justify-content: stretch; */
-}
-
-label {
-  user-select: none;
-  cursor: pointer;
-  /* will-change: transform;
-  transform: translateZ(0px);
-  transition: transform 125ms ease-in-out, filter 125ms ease-in-out; */
-}
-
-label:hover {
-  transform: scale(1.15);
-}
-
-input[type="radio"] {
-  display: none;
-
-  &#t1 ~ .blob {
-    transform-origin: right center;
-  }
-
-  &#t2 ~ .blob {
-    transform-origin: left center;
-  }
-
-  // animated
-  &#t1:checked {
-    ~ .blob {
-      background: cornflowerblue;
-      animation-name: stretchyRev;
-    }
-  }
-
-  &#t2:checked {
-    ~ .blob {
-      background-color: skyblue;
-      animation-name: stretchy;
-    }
-  }
 }
