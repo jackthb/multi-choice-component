@@ -60,66 +60,6 @@ describe("MultiChoice", () => {
       question
     );
   });
-  it("renders the correct question", () => {
-    render(<MultiChoice id={0} option={option} question={question} />);
-    expect(container.querySelectorAll(".slider").length).toEqual(option.length);
-    expect(container.querySelectorAll("div > h1")[0].textContent).toMatch(
-      question
-    );
-  });
-});
-
-describe("MultiChoice", () => {
-  const question = "How many trees are there?";
-  const option = [
-    [
-      { label: "there are no trees", isCorrect: true },
-      { label: "there are many", isCorrect: false },
-    ],
-    [
-      { label: "tall trees", isCorrect: true },
-      { label: "short trees", isCorrect: false },
-    ],
-  ];
-  beforeEach(() => {
-    container = document.createElement("div");
-  });
-  it("renders a mask div", () => {
-    render(
-      <MultiChoice
-        id={animalCell.id}
-        option={animalCell.option}
-        question={animalCell.question}
-      />
-    );
-    expect(container.querySelector("div.mask")).not.toBeNull();
-  });
-  it("renders the correct number of sliders", () => {
-    render(
-      <MultiChoice
-        id={animalCell.id}
-        option={animalCell.option}
-        question={animalCell.question}
-      />
-    );
-    expect(container.querySelectorAll(".slider").length).toEqual(
-      animalCell.option.length
-    );
-  });
-  it("renders the correct question", () => {
-    render(<MultiChoice id={0} option={option} question={question} />);
-    expect(container.querySelectorAll(".slider").length).toEqual(option.length);
-    expect(container.querySelectorAll("div > h1")[0].textContent).toMatch(
-      question
-    );
-  });
-  it("renders the correct question", () => {
-    render(<MultiChoice id={0} option={option} question={question} />);
-    expect(container.querySelectorAll(".slider").length).toEqual(option.length);
-    expect(container.querySelectorAll("div > h1")[0].textContent).toMatch(
-      question
-    );
-  });
 });
 
 describe("Slider", () => {
