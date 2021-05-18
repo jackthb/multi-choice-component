@@ -39,6 +39,10 @@ export default function Slider({
                   setNoCorrect(noCorrect + 1);
                   setCounted(true);
                 }
+                if (counted && s.isCorrect === false) {
+                  setNoCorrect(noCorrect - 1);
+                  setCounted(false);
+                }
                 setInteracted(true);
               }}
             ></input>
