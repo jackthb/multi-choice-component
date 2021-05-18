@@ -62,6 +62,7 @@ export default function MultiChoice({
           questionId={id}
           noCorrect={noCorrect}
           setNoCorrect={setNoCorrect}
+          selected={correct}
         />
       ))}
       <Answer correct={correct} />

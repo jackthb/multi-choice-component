@@ -10,6 +10,7 @@ type SliderProps = {
   questionId: number;
   noCorrect: number;
   setNoCorrect: Function;
+  selected: boolean;
 };
 
 export default function Slider({
@@ -18,9 +19,10 @@ export default function Slider({
   questionId,
   noCorrect,
   setNoCorrect,
+  selected,
 }: SliderProps) {
-  const [selected, setSelected] = useState<boolean>(false);
   const [interacted, setInteracted] = useState<boolean>(false);
+  const [counted, setCounted] = useState<boolean>(false);
   return (
     <div className="slider">
       {options.map((s, index) => {
@@ -33,11 +35,11 @@ export default function Slider({
               value={s.label}
               disabled={selected}
               onChange={() => {
-                setInteracted(true);
-                if (s.isCorrect) {
-                  setSelected(true);
+                if (counted === false && s.isCorrect) {
                   setNoCorrect(noCorrect + 1);
+                  setCounted(true);
                 }
+                setInteracted(true);
               }}
             ></input>
             <label htmlFor={`${questionId}-answer-${id}-${index}`} key={index}>
