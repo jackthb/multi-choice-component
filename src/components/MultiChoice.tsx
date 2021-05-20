@@ -10,30 +10,21 @@ type MultiChoiceProps = {
   }[][];
 };
 
-type AnswerProps = {
-  correct: boolean;
-};
-
-function Answer({ correct }: AnswerProps) {
-  return <p>The answer is {correct ? "correct" : "incorrect"}</p>;
-}
-
 export default function MultiChoice({
   id,
   question,
   option,
 }: MultiChoiceProps) {
-  const [correct, setCorrect] = useState<boolean>(false);
-  const [noCorrect, setNoCorrect] = useState<number>(0);
+  
+  const [numberOfCorrect, setNumberOfCorrect] = useState<number>(0);
   const [colour, setColour] = useState<string[]>(["#FFAD4D", "#FF5500"]);
 
   useEffect(() => {
-    if (noCorrect === option.length) {
+    if (numberOfCorrect === option.length) {
       setColour(["#47e4c1", "#07cddd"]);
-      setCorrect(true);
       return;
     }
-    switch (noCorrect) {
+    switch (numberOfCorrect) {
       case 1:
         setColour(["#FFCA4C", "#FF8400"]);
         break;
@@ -44,7 +35,7 @@ export default function MultiChoice({
         setColour(["#FDE44C", "#FFAA00"]);
         break;
     }
-  }, [noCorrect, option.length]);
+  }, [numberOfCorrect, option.length]);
 
   return (
     <div
@@ -60,12 +51,11 @@ export default function MultiChoice({
           options={x}
           id={index}
           questionId={id}
-          noCorrect={noCorrect}
-          setNoCorrect={setNoCorrect}
-          selected={correct}
+          setNumberOfCorrect={setNumberOfCorrect}
+          disabled={numberOfCorrect === option.length}
         />
       ))}
-      <Answer correct={correct} />
+      <p>The answer is {numberOfCorrect === option.length ? "correct" : "incorrect"}</p>
     </div>
   );
 }

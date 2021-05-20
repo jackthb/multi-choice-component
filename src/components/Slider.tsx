@@ -8,21 +8,33 @@ type SliderProps = {
   }[];
   id: number;
   questionId: number;
-  noCorrect: number;
-  setNoCorrect: Function;
-  selected: boolean;
+  setNumberOfCorrect: Function;
+  disabled: boolean;
 };
 
 export default function Slider({
   options,
   id,
   questionId,
-  noCorrect,
-  setNoCorrect,
-  selected,
+  setNumberOfCorrect,
+  disabled,
 }: SliderProps) {
+
   const [interacted, setInteracted] = useState<boolean>(false);
   const [counted, setCounted] = useState<boolean>(false);
+
+  const handleChange = (correct: boolean) => {
+      if (counted === false && correct) {
+        setNumberOfCorrect((noCorrect: number) => noCorrect + 1);
+        setCounted(true);
+      }
+      if (counted && correct === false) {
+        setNumberOfCorrect((noCorrect: number) => noCorrect - 1);
+        setCounted(false);
+      }
+      setInteracted(true);
+  }
+
   return (
     <div className="slider">
       {options.map((s, index) => {
@@ -33,18 +45,8 @@ export default function Slider({
               name={`${questionId}-answer-${id}`}
               id={`${questionId}-answer-${id}-${index}`}
               value={s.label}
-              disabled={selected}
-              onChange={() => {
-                if (counted === false && s.isCorrect) {
-                  setNoCorrect(noCorrect + 1);
-                  setCounted(true);
-                }
-                if (counted && s.isCorrect === false) {
-                  setNoCorrect(noCorrect - 1);
-                  setCounted(false);
-                }
-                setInteracted(true);
-              }}
+              disabled={disabled}
+              onChange={() => handleChange(s.isCorrect)}
             ></input>
             <label htmlFor={`${questionId}-answer-${id}-${index}`} key={index}>
               {s.label}
