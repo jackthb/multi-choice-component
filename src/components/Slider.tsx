@@ -6,7 +6,7 @@ type SliderProps = {
     label: string;
     isCorrect: boolean;
   }[];
-  setNumberOfCorrect: Function;
+  setCorrectPositions: Function;
   disabled: boolean;
   optionId: number;
 };
@@ -14,24 +14,20 @@ type SliderProps = {
 export default function Slider({
   options,
   optionId,
-  setNumberOfCorrect,
+  setCorrectPositions,
   disabled,
 }: SliderProps) {
 
   const [interacted, setInteracted] = useState<boolean>(false);
-  const [counted, setCounted] = useState<boolean>(false);
   const [checked, setChecked] = useState<string>("");
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>, correct: boolean) => {
     setChecked(e.target.value);
-    if (counted === false && correct) {
-      setNumberOfCorrect((noCorrect: number) => noCorrect + 1);
-      setCounted(true);
-    }
-    if (counted && correct === false) {
-      setNumberOfCorrect((noCorrect: number) => noCorrect - 1);
-      setCounted(false);
-    }
+    setCorrectPositions((existingPositions: Array<number>) => {
+      let updatedPositions = [...existingPositions]
+      updatedPositions[optionId] = correct ? 1 : 0
+      return updatedPositions
+    })
     setInteracted(true);
   };
 
@@ -39,7 +35,7 @@ export default function Slider({
     <div className="slider">
       {options.map((opt, index) => {
         return (
-          <React.Fragment>
+          <React.Fragment key={index}>
             <input
               className={checked === opt.label ? 'active' : ''}
               type="radio"

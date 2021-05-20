@@ -11,10 +11,16 @@ export default function MultiChoice({
   question
 }: MultiChoiceProps) {
   
-  const [numberOfCorrect, setNumberOfCorrect] = useState<number>(0);
+  // const [numberOfCorrect, setNumberOfCorrect] = useState<number>(0);
+  const [correctPositions, setCorrectPositions] = useState<Array<number>>([0, 0, 0, 0]);
   const [colour, setColour] = useState<string[]>(["#FFAD4D", "#FF5500"]);
 
+  // to get sum of array
+  const reducer = (accumulator: number, currentValue: number) => accumulator + currentValue;
+  
+
   useEffect(() => {
+    const numberOfCorrect = correctPositions.reduce(reducer)
     if (numberOfCorrect === question.options.length) {
       setColour(["#47e4c1", "#07cddd"]);
       return;
@@ -30,7 +36,7 @@ export default function MultiChoice({
         setColour(["#FDE44C", "#FFAA00"]);
         break;
     }
-  }, [numberOfCorrect, question.options.length]);
+  }, [correctPositions, question.options.length]);
 
   return (
     <div
@@ -45,11 +51,11 @@ export default function MultiChoice({
           key={index}
           options={x}
           optionId={index}
-          setNumberOfCorrect={setNumberOfCorrect}
-          disabled={numberOfCorrect === question.options.length}
+          setCorrectPositions={setCorrectPositions}
+          disabled={correctPositions.reduce(reducer) === question.options.length}
         />
       ))}
-      <p>The answer is {numberOfCorrect === question.options.length ? "correct" : "incorrect"}</p>
+      <p>The answer is {correctPositions.reduce(reducer) === question.options.length ? "correct" : "incorrect"}</p>
     </div>
   );
 }
