@@ -1,16 +1,7 @@
 import { useState, useEffect } from "react";
 import MultiChoice from "./components/MultiChoice";
 
-import { animalCell, defaultOptions, altOptions } from "./data";
-
-type QuestionProps = {
-  id: number;
-  question: string;
-  option: {
-    label: string;
-    isCorrect: boolean;
-  }[][];
-};
+import { animalCell, defaultOptions, altOptions, Question } from "./data";
 
 export default function App() {
   const [question, setQuestion] = useState(animalCell);
@@ -18,13 +9,13 @@ export default function App() {
 
   useEffect(() => {
     if (sorted) return;
-    question.option.forEach((x) => {
+    question.options.forEach((x) => {
       x.sort(() => Math.random() - 0.5);
     });
     setSorted(true);
   }, [question, sorted]);
 
-  const handleChange = (question: QuestionProps) => {
+  const handleChange = (question: Question) => {
     setQuestion(question);
     setSorted(false);
   };
@@ -33,11 +24,8 @@ export default function App() {
     <div className="container">
       <MultiChoice
         key={question.id}
-        id={question.id}
-        question={question.question}
-        option={question.option}
+        question={question}
       />
-
       <div className="chooseQuestion">
         <span>Choose Question:</span>
         <ul>
