@@ -1,26 +1,21 @@
 import { useEffect, useState } from "react";
 import Slider from "./Slider";
+import type {Question} from '../data'
+
 
 type MultiChoiceProps = {
-  id: number;
-  question: string;
-  option: {
-    label: string;
-    isCorrect: boolean;
-  }[][];
+  question: Question;
 };
 
 export default function MultiChoice({
-  id,
-  question,
-  option,
+  question
 }: MultiChoiceProps) {
   
   const [numberOfCorrect, setNumberOfCorrect] = useState<number>(0);
   const [colour, setColour] = useState<string[]>(["#FFAD4D", "#FF5500"]);
 
   useEffect(() => {
-    if (numberOfCorrect === option.length) {
+    if (numberOfCorrect === question.options.length) {
       setColour(["#47e4c1", "#07cddd"]);
       return;
     }
@@ -35,7 +30,7 @@ export default function MultiChoice({
         setColour(["#FDE44C", "#FFAA00"]);
         break;
     }
-  }, [numberOfCorrect, option.length]);
+  }, [numberOfCorrect, question.options.length]);
 
   return (
     <div
@@ -44,18 +39,17 @@ export default function MultiChoice({
         backgroundImage: `linear-gradient(to bottom, ${colour[0]}, ${colour[1]})`,
       }}
     >
-      <h1 className="text">{question}</h1>
-      {option.map((x, index) => (
+      <h1 className="text">{question.title}</h1>
+      {question.options.map((x, index) => (
         <Slider
-          key={`${index}-${id}`}
+          key={index}
           options={x}
-          id={index}
-          questionId={id}
+          optionId={index}
           setNumberOfCorrect={setNumberOfCorrect}
-          disabled={numberOfCorrect === option.length}
+          disabled={numberOfCorrect === question.options.length}
         />
       ))}
-      <p>The answer is {numberOfCorrect === option.length ? "correct" : "incorrect"}</p>
+      <p>The answer is {numberOfCorrect === question.options.length ? "correct" : "incorrect"}</p>
     </div>
   );
 }
