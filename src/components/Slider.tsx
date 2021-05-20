@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import "./Slider.css";
 
 type SliderProps = {
@@ -6,50 +6,54 @@ type SliderProps = {
     label: string;
     isCorrect: boolean;
   }[];
-  id: number;
-  questionId: number;
   setNumberOfCorrect: Function;
   disabled: boolean;
+  optionId: number;
 };
 
 export default function Slider({
   options,
-  id,
-  questionId,
+  optionId,
   setNumberOfCorrect,
   disabled,
 }: SliderProps) {
 
   const [interacted, setInteracted] = useState<boolean>(false);
   const [counted, setCounted] = useState<boolean>(false);
+  const [checked, setChecked] = useState<string>("");
 
-  const handleChange = (correct: boolean) => {
-      if (counted === false && correct) {
-        setNumberOfCorrect((noCorrect: number) => noCorrect + 1);
-        setCounted(true);
-      }
-      if (counted && correct === false) {
-        setNumberOfCorrect((noCorrect: number) => noCorrect - 1);
-        setCounted(false);
-      }
-      setInteracted(true);
-  }
+  const handleChange = (e: ChangeEvent<HTMLInputElement>, correct: boolean) => {
+    setChecked(e.target.value);
+    if (counted === false && correct) {
+      setNumberOfCorrect((noCorrect: number) => noCorrect + 1);
+      setCounted(true);
+    }
+    if (counted && correct === false) {
+      setNumberOfCorrect((noCorrect: number) => noCorrect - 1);
+      setCounted(false);
+    }
+    setInteracted(true);
+  };
 
   return (
     <div className="slider">
-      {options.map((s, index) => {
+      {options.map((opt, index) => {
         return (
-          <React.Fragment key={`${index}`}>
+          <React.Fragment>
             <input
+              className={checked === opt.label ? 'active' : ''}
               type="radio"
-              name={`${questionId}-answer-${id}`}
-              id={`${questionId}-answer-${id}-${index}`}
-              value={s.label}
+              name={`${optionId}-answer-${index}`}
+              id={`${optionId}-answer-${index}`}
+              checked={checked === opt.label}
+              value={opt.label}
               disabled={disabled}
-              onChange={() => handleChange(s.isCorrect)}
+              onChange={(e) => {
+                handleChange(e, opt.isCorrect);
+              }}
             ></input>
-            <label htmlFor={`${questionId}-answer-${id}-${index}`} key={index}>
-              {s.label}
+            <label htmlFor={`${optionId}-answer-${index}`} key={index}>
+              {opt.label}
             </label>
           </React.Fragment>
         );
