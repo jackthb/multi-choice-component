@@ -11,13 +11,11 @@ export default function MultiChoice({
   question
 }: MultiChoiceProps) {
   
-  // const [numberOfCorrect, setNumberOfCorrect] = useState<number>(0);
   const [correctPositions, setCorrectPositions] = useState<Array<number>>([0, 0, 0, 0]);
   const [colour, setColour] = useState<string[]>(["#FFAD4D", "#FF5500"]);
 
   // to get sum of array
   const reducer = (accumulator: number, currentValue: number) => accumulator + currentValue;
-  
 
   useEffect(() => {
     const numberOfCorrect = correctPositions.reduce(reducer)
